@@ -10,12 +10,14 @@ private:
   struct Node{
     string key;
     vector<Node *> sons;
+    vector<string> p;
   };
   Node *parent;
   vector<Node *> roots;
   vector<string> poblation;
   vector<int> count;
   void doing_nodes( vector<string> p);
+  void create_count();
 
 public:
   Simulations(){}
@@ -24,7 +26,7 @@ public:
   vector<string> get_poblation();
   void nodes() {doing_nodes(poblation);}
   void print_nodes();
-
+  void do_simulation();//Number o iterations
 
 
 };
