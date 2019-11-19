@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <stdexcept>
 #include <stdio.h>
+#include <list>
 using namespace std;
 
 //Private functions
@@ -58,6 +59,7 @@ void Simulations::do_simulation(){
   int sz = population.size();
   int szRoots = roots.size();
   vector<string> newpopulation;
+  vector<string> population2;
   if(roots.empty())
     throw runtime_error(" No roots :( ");
   else{
@@ -75,15 +77,25 @@ void Simulations::do_simulation(){
     cout << endl;
   for(int j = 0; j < x; j++){
     if(count[j]>=1){
+      string f = to_string(j+1)+"´";
       string son = to_string(j+1)+":"+to_string(j+1)+"´";
       newpopulation.push_back(son);
+      population2.push_back(f);
       for(int k = 1; k< count[j];k++){
         string primas = "´";
         for(int g = 1; g <= k; g++){
           primas += primas;
         }
+        string primas2 = "´";
+        for(int u = 1; u < k; u++){
+          primas2 += primas2;
+        }
         son = to_string(j+1) + ":" +to_string(j+1) + primas;
+        f = f + primas2;
         newpopulation.push_back(son);
+        population2.push_back(f);
+
+
       }
 
 
@@ -92,8 +104,11 @@ void Simulations::do_simulation(){
   }
   cout << "se hace set_population\n";
   cout << endl;
-  set_population(newpopulation);
+  set_population(population2);
   }
+  for(unsigned int t = 0; t < newpopulation.size(); t++){
+    cout << newpopulation[t] << " ";
+  }cout << endl;
   for(unsigned int y = 0; y < population.size();y++){
     string p = population[y];
     //cout << p.at(0) << endl;
@@ -109,30 +124,91 @@ void Simulations::do_simulation(){
       }
     }
   }
+  set_population(newpopulation);
+  cout << "Finding ... " << endl;
+  Node *t = find("2:2´");
+  if(t != nullptr)
+    cout << t->key << endl;
+  else
+    cout << "esta mal  " << endl;
+  // if(t->sons.size()>0){
+  //   for(unsigned int c = 0; c < t->sons.size();c++){
+  //     cout << t->sons[c]->key << endl;
+  //   }
+  // }
+  // else{
+  //   cout << t->key << endl;
+  // }
 }
 
-// Node* Simulations::find_node(string key,vector<Node *> x){
-//   for(unsigned int i = 0; i < x.size();i++ ){
-//     if(x[i]->key == key){
-//       cout << x[i]->key << endl;
-//       return x[i];
-//     }else{
-//       char k = key.at(0);
-//       string s(1,k);
-//       for(unsigned int i = 0; i < x.size(); i++){
-//           if(x[i]->key == s){
-//             find_node(key, x[i]->sons);
-//             break;
-//           }
-//
-//       }
-//
-//     }
-//
-//   }
-//   return nullptr;
-// }
+Node* Simulations::find_node(vector<Node *> &x,string key,string temp){
+  vector<string> Keys;
+  for(unsigned int i = 0; i < x.size();i++ ){
+    if(x[i]->key == key){
+      return x[i];
+      }
+    }
+    char k = key.at(0);
+    string s = "";
+    for(int j = 0; j < key.length();j++){
+      char r = key.at(j);
+
+      if( r == ':'){
+        cout << "pushing ..." ;
+        Keys.push_back(s);
+        cout << s << endl;
+        s = "";
+      }
+      if(r != ':'){
+        s += r;
+
+      }
+    }
+    Keys.push_back(s);
+    cout << endl;
+    cout << Keys.size() << endl;
+    for(unsigned int y = 0; y < Keys.size(); y++){
+      cout << Keys[y] << " ";
+    }
+    cout << endl;
+    string newKey = "";
+    for(unsigned int o = 1; o < Keys.size();o++){
+      newKey =":"+ Keys[o];
+    }
+    string r = Keys[0];
+    temp += r;
+    cout << temp << endl;
+    cout << newKey << endl;
+    // cout << newKey << endl;
+    // cout << temp << endl;
+    for(unsigned int u = 0; u < x.size(); u++){
+      if(x[u]->key == temp){
+        // cout << "holi " << endl;
+        // cout << x[u]->key << endl;
+        return x[u];
+      }
+    }
+    return x[0];
+
+  return nullptr;
+}
 
 void Simulations:: simulation(){
   do_simulation();
 }
+
+
+// string Simulations:: take_last(Node * &t){
+//   string temp = t->key;
+//   string final = "";
+//   for(int j = 0; j < temp.length();j++){
+//     char p = temp.at(j);
+//     final += p;
+//     cout << final << endl;
+//     if(p == ':'){
+//       final = "";
+//     }
+//   }
+//   cout << final << endl;
+//   return final;
+// }
