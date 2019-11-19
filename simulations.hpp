@@ -18,7 +18,7 @@ private:
   vector<int> count;
   void doing_nodes( vector<string> p);
   void create_count();
-  Node* find_node(string key,vector<Node *> x);
+  Node* find_node(vector<Node *> &x,string key,string temp);
 
 public:
   Simulations(){}
@@ -28,8 +28,9 @@ public:
   void nodes() {doing_nodes(population);}
   void print_nodes();
   void do_simulation();//Number o iterations
-  Node* find(string key){return find_node(key, roots);}
+  Node* find(string key){return find_node(roots,key,"");}
   void simulation();
+  string take_last(Node * &t);
 
 };
 
