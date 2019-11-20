@@ -29,8 +29,9 @@ public:
   void print_nodes();
   void do_simulation();//Number o iterations
   Node* find(string key){return find_node(roots,key,"");}
-  void simulation();
-  string take_last(Node * &t);
+  void simulation(int k);
+  void create_sons(int n, string s, vector<Node *> roots, );
+
 
 };
 
