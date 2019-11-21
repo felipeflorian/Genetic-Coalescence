@@ -16,8 +16,9 @@ int main(){
   //for(unsigned int u = 0; u < pob.size(); u++){cout << pob[u] << " ";}
   cout << endl;
   //test.doing_simulations(3);
-  test.doing_simulations(6);
+  test.doing_simulations(5);
   test.display_tree();
+  //lo hace 5 veces
 
   return 0;
 }
