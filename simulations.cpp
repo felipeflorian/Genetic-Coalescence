@@ -1,6 +1,19 @@
 #include "simulations.hpp"
 
 
+
+void Simulations::destroy(vector<Node *> p){
+  for(unsigned int i = 0; i < p.size();i++){
+    if(p[i]->sons.size() != 0){
+      destroy(p[i]->sons);
+      delete p[i];
+    }else{
+      delete p[i];
+    }
+  }
+}
+
+
 bool Simulations:: only_one_element(vector<int> p){
   int sz = p.size();
   int f = p[0];
@@ -109,6 +122,7 @@ void Simulations::do_simulation(){
       if(count[j]>=1){
         int son = j+1;
         for(int k = 1; k<= count[j];k++){
+          final_poblation.push_back(son);
           newpopulation.push_back(son);
         }
       }
@@ -163,6 +177,7 @@ void Simulations:: doing_simulations(int k){
       }
     }
     cout << endl;
+    for(unsigned int a = 0; a < newpopulation.size();a++){final_poblation.push_back(newpopulation[a]);}
     for(unsigned int h = 0; h < population.size();h++){cout << population[h] << " ";}
     cout << endl;
     cout << "printing population" << endl;
@@ -212,4 +227,9 @@ void Simulations:: display_tree(){
   }
 
 
+}
+void Simulations:: create_txt(){
+  for(unsigned int i = 0; i < final_poblation.size();i++){
+
+  }
 }
