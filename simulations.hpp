@@ -3,10 +3,20 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <stdlib.h>
+#include <time.h>
+#include <cstdlib>
+#include <stdexcept>
+#include <stdio.h>
+#include <list>
+#include <queue>
 using namespace std;
 
 struct Node{
-  string key;
+  int key;
   vector<Node *> sons;
 };
 
@@ -14,24 +24,23 @@ class Simulations{
 private:
   Node *parent;
   vector<Node *> roots;
-  vector<string> population;
+  vector<int> population;
   vector<int> count;
-  void doing_nodes( vector<string> p);
+  void doing_nodes( vector<int> p);
   void create_count();
-  Node* find_node(vector<Node *> &x,string key,string temp);
+  void display(Node *root);
 
 public:
   Simulations(){}
   //~Simulations();
-  void set_population(const vector<string> nw);
-  vector<string> get_population();
+  void set_population(const vector<int> nw);
+  vector<int> get_population();
   void nodes() {doing_nodes(population);}
   void print_nodes();
   void do_simulation();//Number o iterations
-  Node* find(string key){return find_node(roots,key,"");}
-  void simulation(int k);
-  void create_sons(int n, string s, vector<Node *> roots, );
-
+  void doing_simulations(int k);
+  void create_sons(int n, int s, vector<Node *>  roots);
+  void display_tree();
 
 };
 
