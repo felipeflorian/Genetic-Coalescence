@@ -1,6 +1,19 @@
 #include "simulations.hpp"
 
 
+bool Simulations:: only_one_element(vector<int> p){
+  int sz = p.size();
+  int f = p[0];
+  for(int h = 1; h < sz; h++){
+    if(p[h] == f)
+      f = p[h];
+    else
+      return false;
+  }
+  return true;
+
+}
+
 //Private functions
 void Simulations::doing_nodes( vector<int> nw){
   int sz = nw.size();
@@ -51,58 +64,26 @@ void Simulations::print_nodes(){
   }
 }
 
-void Simulations::create_sons(int n, int s, vector<Node *>  roots){
-  Node * copy;
-  for(unsigned int i = 0; i < population.size(); i++){
-    if(roots[i]->key == s){
-      copy = roots[i];
+void Simulations::create_sons(int n, int s, vector<Node *>  r){
+  Node *copy;
+  for(unsigned int i = 0; i < r.size(); i++){
+    if(r[i]->key == s){
+      copy = r[i];
       break;
     }
   }
-
-  vector<Node *> find_son;
-  find_son = copy->sons;
-  if(find_son.size()==0){
-    for(int j = 0; j < n; j++){
+  vector<Node *> find_son = copy->sons;
+  if(copy->sons.size()==0){
+    for(int y = 0; y < n; y++){
       Node *nw;
       nw = new Node;
       nw->key = s;
       copy->sons.push_back(nw);
     }
-  }else{
-    for(unsigned int p = 0; p < find_son.size(); p++){
-      Node *e = copy->sons[p];
-      if(e->sons.size() == 0){
-        if(n%2 == 0){
-          for(int j = 0; j < n; j++){
-            Node *nw;
-            nw = new Node;
-            nw->key = s;
-            e->sons.push_back(nw);
-          }
-        }else{
-          for(int j = 0; j <= n; j++){
-            Node *nw;
-            nw = new Node;
-            nw->key = s;
-            e->sons.push_back(nw);
-          }
-        }
-      }else{
-          cout << "entre al else " << endl;
-          int sz = copy->sons.size();
-          for(int i = 0; i < sz; i++){
-            Node *temp;
-            temp = copy->sons[i];
-            Node *temp2 = nullptr;
-            while(temp->sons.size() != 0){
-              create_sons(n,s temp->sons);
-            }
-          }
-      }
-    }
   }
-
+  else{
+     create_sons(n,s,copy->sons);
+  }
 }
 
 
@@ -137,9 +118,15 @@ void Simulations::do_simulation(){
   for(unsigned int k = 0; k <population.size();k++){cout << population[k] << " ";}
   }
   cout << endl;
+  bool all =only_one_element(population);
+  if(all == true){
+    cout << "me llene" << endl;
+    create_sons(sz, population[0], roots);
+  }
   for(int r = 0; r < sz; r++){
     int x = r+1;
-    create_sons(count[r],x,roots);
+    if(count[r] != 0)
+      create_sons(count[r],x,roots);
   }
 }
 
@@ -151,6 +138,8 @@ void Simulations:: doing_simulations(int k){
   for(int i = 0; i < k -1 ; i++){
     cout << "doing simulation " << endl;
     vector<int> newpopulation(sz,0);
+    vector<int> lastpopulation(sz,0);
+    for(int l = 0; l < sz; l++){lastpopulation[l] = population[l];}
     create_count();
     for(int i = 0; i < sz; i++){
       int ran = 1 + rand() % (sz-1);
@@ -168,24 +157,33 @@ void Simulations:: doing_simulations(int k){
     for(int j = 0; j < x; j++){
       if(count[j] >= 1){
         for(int f = 0; f < count[j]; f++){
-          cout << population[j] << " ";
           newpopulation[count2] = population[j];
           count2++;
         }
       }
     }
+    cout << endl;
+    for(unsigned int h = 0; h < population.size();h++){cout << population[h] << " ";}
+    cout << endl;
     cout << "printing population" << endl;
     set_population(newpopulation);
     for(unsigned int k = 0; k <population.size();k++){cout << population[k] << " ";}
     cout << endl;
     cout << "creating sons " << endl;
-    for(int r = 0; r <sz ;r++){
-      int x = population[r];
-      create_sons(count[r],x,roots);
+    bool all = only_one_element(population);
+    if(all == true){
+      cout << "me llene" << endl;
+      cout << population[0] << endl;
+      cout << endl << endl;
+      create_sons(sz, population[0], roots);
+      break;
     }
-    cout << endl;
+    for(int r = 0; r <sz ;r++){
+      int x = lastpopulation[r];
+      if(count[r] != 0)
+        create_sons(count[r],x,roots);
+    }
   }
-  cout << endl;
 }
 
 void Simulations::display(Node *root){
@@ -205,7 +203,7 @@ void Simulations::display(Node *root){
     }
     cout << endl;
   }
-  cout << endl << endl;
+  cout << endl;
 }
 
 void Simulations:: display_tree(){
