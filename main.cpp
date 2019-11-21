@@ -6,20 +6,18 @@ using namespace std;
 
 int main(){
   Simulations test;
-  vector<string> change = {"1","2","3","4","5"};
+  vector<int> change = {1,2,3,4,5};
   test.set_population(change);
 
 
   test.nodes();
-  test.do_simulation();
-  vector<string> pob = test.get_population();
-  int sz = pob.size();
-
-  for(int i = 0; i < sz; i++){
-    cout << pob[i] << " ";
-  }
+  //test.do_simulation();
+  vector<int> pob = test.get_population();
+  //for(unsigned int u = 0; u < pob.size(); u++){cout << pob[u] << " ";}
   cout << endl;
-
+  //test.doing_simulations(3);
+  test.doing_simulations(6);
+  test.display_tree();
 
   return 0;
 }
