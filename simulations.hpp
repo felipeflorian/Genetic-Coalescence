@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <list>
 #include <queue>
+#include <fstream>
 using namespace std;
 
 struct Node{
@@ -22,7 +23,6 @@ struct Node{
 
 class Simulations{
 private:
-  Node *parent;
   vector<Node *> roots;
   vector<int> population;
   vector<int> count;
@@ -33,7 +33,7 @@ private:
 
 public:
   Simulations(){}
-  //~Simulations();
+  ~Simulations(){destroy(roots);};
   void set_population(const vector<int> nw);
   vector<int> get_population();
   void nodes() {doing_nodes(population);}
@@ -43,6 +43,8 @@ public:
   void create_sons(int n, int s, vector<Node *>  r);
   void display_tree();
   bool only_one_element(vector<int> p);
+  void create_txt();
+  void destroy(vector<Node *> p);
 
 };
 
