@@ -26,7 +26,8 @@ private:
   vector<Node *> roots;
   vector<int> population;
   vector<int> count;
-  vector<int> final_poblation;
+  vector<int> final_population;
+  vector<int> final_count;
   void doing_nodes( vector<int> p);
   void create_count();
   void display(Node *root);
@@ -45,6 +46,7 @@ public:
   bool only_one_element(vector<int> p);
   void create_txt();
   void destroy(vector<Node *> p);
+  void create_txtcount();
 
 };
 
