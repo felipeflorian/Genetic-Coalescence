@@ -116,13 +116,14 @@ void Simulations::do_simulation(){
     cout << endl;
     for(int i = 0; i < x ; i++){
       cout << count[i] << " ";
+      final_count.push_back(count[i]);
     }
     cout << endl;
     for(int j = 0; j < x; j++){
       if(count[j]>=1){
         int son = j+1;
         for(int k = 1; k<= count[j];k++){
-          final_poblation.push_back(son);
+          final_population.push_back(son);
           newpopulation.push_back(son);
         }
       }
@@ -165,6 +166,7 @@ void Simulations:: doing_simulations(int k){
     cout << "Printing count ..." << endl;
     for(int i = 0; i < x ; i++){
       cout << count[i] << " ";
+      final_count.push_back(count[i]);
     }
     cout << endl;
     int count2 = 0;
@@ -177,7 +179,7 @@ void Simulations:: doing_simulations(int k){
       }
     }
     cout << endl;
-    for(unsigned int a = 0; a < newpopulation.size();a++){final_poblation.push_back(newpopulation[a]);}
+    for(unsigned int a = 0; a < newpopulation.size();a++){final_population.push_back(newpopulation[a]);}
     for(unsigned int h = 0; h < population.size();h++){cout << population[h] << " ";}
     cout << endl;
     cout << "printing population" << endl;
@@ -229,7 +231,48 @@ void Simulations:: display_tree(){
 
 }
 void Simulations:: create_txt(){
-  for(unsigned int i = 0; i < final_poblation.size();i++){
-
+  //cout << "creando txt " << endl;
+  ofstream final;
+  final.open("populations.txt");
+  string e = " ";
+  int c = 0;
+  int sz = population.size();
+  string p = "";
+  for(unsigned int i = 0; i < final_population.size();i++){
+    p += to_string(final_population[i]);
+    p += e;
+    c++;
+    if(c == sz){
+    //  cout << "entre al if" << endl;
+      c = 0;
+      final << p + '\n';
+    //  cout << p << endl;
+      p = "";
+    }
   }
+  //cout << "cerrando el archivo" << endl;
+  final.close();
+}
+
+void Simulations:: create_txtcount(){
+  ofstream final;
+  final.open("counts.txt");
+  string e = " ";
+  int c = 0;
+  int sz = population.size();
+  string p = "";
+  for(unsigned int i = 0; i < final_count.size();i++){
+    p += to_string(final_count[i]);
+    p += e;
+    c++;
+    if(c == sz){
+    //  cout << "entre al if" << endl;
+      c = 0;
+      final << p + '\n';
+    //  cout << p << endl;
+      p = "";
+    }
+  }
+  //cout << "cerrando el archivo" << endl;
+  final.close();
 }
