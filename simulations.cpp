@@ -135,7 +135,6 @@ void Simulations::do_simulation(){
   cout << endl;
   bool all =only_one_element(population);
   if(all == true){
-    cout << "me llene" << endl;
     create_sons(sz, population[0], roots);
   }
   for(int r = 0; r < sz; r++){
@@ -158,7 +157,7 @@ void Simulations:: doing_simulations(int k){
     create_count();
     for(int i = 0; i < sz; i++){
       int ran = 1 + rand() % (sz-1);
-      cout << ran << " ";
+     cout << ran << " ";
       count[ran-1]++;
     }
     int x = count.size();
@@ -189,9 +188,6 @@ void Simulations:: doing_simulations(int k){
     cout << "creating sons " << endl;
     bool all = only_one_element(population);
     if(all == true){
-      cout << "me llene" << endl;
-      cout << population[0] << endl;
-      cout << endl << endl;
       create_sons(sz, population[0], roots);
       break;
     }
@@ -231,7 +227,6 @@ void Simulations:: display_tree(){
 
 }
 void Simulations:: create_txt(){
-  //cout << "creando txt " << endl;
   ofstream final;
   final.open("populations.txt");
   string e = " ";
@@ -243,36 +238,38 @@ void Simulations:: create_txt(){
     p += e;
     c++;
     if(c == sz){
-    //  cout << "entre al if" << endl;
       c = 0;
       final << p + '\n';
-    //  cout << p << endl;
       p = "";
     }
   }
-  //cout << "cerrando el archivo" << endl;
   final.close();
 }
 
+
 void Simulations:: create_txtcount(){
-  ofstream final;
+  ofstream final, average;
   final.open("counts.txt");
+  average.open("average.txt");
   string e = " ";
   int c = 0;
+  int b = 0;
   int sz = population.size();
+  average << sz << endl;
   string p = "";
   for(unsigned int i = 0; i < final_count.size();i++){
     p += to_string(final_count[i]);
     p += e;
     c++;
+    if(final_count[i] == 2)
+      b += 1;
     if(c == sz){
-    //  cout << "entre al if" << endl;
       c = 0;
       final << p + '\n';
-    //  cout << p << endl;
+      average << b << endl;
+      b = 0;
       p = "";
     }
   }
-  //cout << "cerrando el archivo" << endl;
   final.close();
 }
