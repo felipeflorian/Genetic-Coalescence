@@ -135,3 +135,4 @@ pos2 = nx.get_node_attributes(G, 'pos')
 nx.draw_networkx(G,pos2)
 nx.draw_networkx_edge_labels(G,pos2,edge_labels = weight2)
 plt.show()
+###
