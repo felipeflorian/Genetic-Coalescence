@@ -1,7 +1,6 @@
 #include "simulations.hpp"
 
 
-
 void Simulations::destroy(vector<Node *> p){
   for(unsigned int i = 0; i < p.size();i++){
     if(p[i]->sons.size() != 0){
@@ -13,7 +12,6 @@ void Simulations::destroy(vector<Node *> p){
   }
 }
 
-
 bool Simulations:: only_one_element(vector<int> p){
   int sz = p.size();
   int f = p[0];
@@ -24,7 +22,6 @@ bool Simulations:: only_one_element(vector<int> p){
       return false;
   }
   return true;
-
 }
 
 //Private functions
@@ -51,7 +48,6 @@ void Simulations::create_count(){
     }
   }
 }
-
 
 void  Simulations:: set_population(const vector<int> nw){
   int sz = nw.size();
@@ -223,9 +219,8 @@ void Simulations:: display_tree(){
   for(unsigned int i = 0; i < roots.size(); i++){
     display(roots[i]);
   }
-
-
 }
+
 void Simulations:: create_txt(){
   ofstream final;
   final.open("populations.txt");
@@ -245,7 +240,6 @@ void Simulations:: create_txt(){
   }
   final.close();
 }
-
 
 void Simulations:: create_txtcount(){
   ofstream final, average;
