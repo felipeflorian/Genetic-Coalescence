@@ -28,7 +28,7 @@ private:
   vector<int> count;
   vector<int> final_population;
   vector<int> final_count;
-  void doing_nodes( vector<int> p);
+  void doing_nodes(vector<int> p);
   void create_count();
   void display(Node *root);
 
